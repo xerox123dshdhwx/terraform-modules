@@ -14,8 +14,7 @@ data "gitlab_group" "target" {
 data "external" "project_check" {
   program = ["sh", "-c", <<-EOF
     PROJECT_PATH=$(echo "${var.gitlab_group}/${var.app_name}" | sed 's/\//%2F/g')
-    RESPONSE=$(curl -s --header "PRIVATE-TOKEN: ${var.gitlab_token}" \
-      "https://gitlab.com/api/v4/projects/$PROJECT_PATH")
+    RESPONSE=$(wget -q -O - --header="PRIVATE-TOKEN: ${var.gitlab_token}" "https://gitlab.com/api/v4/projects/$PROJECT_PATH" 2>/dev/null)
     PROJECT_ID=$(echo "$RESPONSE" | grep -o '"id":[0-9]*' | head -1 | grep -o '[0-9]*')
     if [ -n "$PROJECT_ID" ]; then
       echo "{\"exists\": \"true\", \"id\": \"$PROJECT_ID\"}"
