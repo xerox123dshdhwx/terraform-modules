@@ -1,7 +1,7 @@
 output "repo_url" {
-  value = gitlab_project.app_repo.http_url_to_repo
+  value = "https://gitlab.com/${var.gitlab_group}/${var.app_name}.git"
 }
 
 output "repo_name" {
-  value = gitlab_project.app_repo.name
+  value = var.app_name
 }
