@@ -16,6 +16,11 @@ PROJECT_EXISTS=${11}
 echo "=== Starting setup for $APP_NAME ==="
 echo "Project exists: $PROJECT_EXISTS"
 
+if [ "$PROJECT_EXISTS" = "true" ]; then
+  echo "=== Project $APP_NAME already exists, skipping setup ==="
+  exit 0
+fi
+
 TEMP_DIR=$(mktemp -d)
 echo "Created temp dir: $TEMP_DIR"
 cd $TEMP_DIR
