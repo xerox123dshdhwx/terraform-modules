@@ -12,7 +12,7 @@ data "gitlab_group" "target" {
 }
 
 data "external" "project_check" {
-  program = ["bash", "-c", <<-EOF
+  program = ["sh", "-c", <<-EOF
     PROJECT_PATH=$(echo "${var.gitlab_group}/${var.app_name}" | sed 's/\//%2F/g')
     RESPONSE=$(curl -s --header "PRIVATE-TOKEN: ${var.gitlab_token}" \
       "https://gitlab.com/api/v4/projects/$PROJECT_PATH")
